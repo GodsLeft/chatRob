@@ -10,3 +10,23 @@
 - 下载github上NLPIR的证书
 - 替换安装目录下的Data/NLPIR.user文件
 - 我使用的是anaconda 安装目录在 $HOME/.pyenv/versions/anaconda2-4.1.1/lib/python2.7/site-packages/pynlpir/Data
+
+# scrapy
+## 全局命令
+- startproject:生成一个爬虫项目
+- settings:
+- runspider
+- shell:
+- fetch
+- view
+- version:显示scrapy版本
+
+## 项目命令
+- crawl:使用spider进行爬取
+- check:运行contract检查
+- list:显示可用的爬虫
+- edit
+- parse
+- genspider:生成爬虫样本代码
+- deploy
+- bench
