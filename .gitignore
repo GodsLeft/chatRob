@@ -1,1 +1,5 @@
 *.pyc
+result/
+target/
+.idea/
+*.iml
