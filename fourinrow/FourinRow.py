@@ -370,3 +370,6 @@ def runGame(isFirstGame):
         else:
             turn = HUMAN
         showHelp = False
+
+if __name__ == '__main__':
+    main()
