@@ -24,17 +24,17 @@
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-analyzers-common</artifactId>
-      <version>4.10.4</version>
+      <version>4.9.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-core</artifactId>
-      <version>4.10.4</version>
+      <version>4.9.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-queryparser</artifactId>
-      <version>4.10.4</version>
+      <version>4.9.0</version>
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
@@ -49,6 +49,7 @@
   </dependencies>
   <build>
     <plugins>
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -78,6 +79,20 @@
               <classpathPrefix>lib/</classpathPrefix>
               <mainClass>theMainClass</mainClass>
             </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2-beta-5</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+
           </archive>
         </configuration>
       </plugin>

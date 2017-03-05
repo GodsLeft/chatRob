@@ -44,7 +44,7 @@ public class Indexer
         String indexPath = args[1];
 
         Analyzer analyzer = new IKAnalyzer(true);
-        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_10_4, analyzer);
+        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_9, analyzer);
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         iwc.setUseCompoundFile(true);
         IndexWriter indexWriter = new IndexWriter(FSDirectory.open(new File(indexPath)), iwc);
