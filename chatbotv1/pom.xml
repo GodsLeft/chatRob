@@ -103,7 +103,9 @@
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
           <archive>
-
+            <manifest>
+              <mainClass>com.left.Indexer</mainClass>
+            </manifest>
           </archive>
         </configuration>
       </plugin>
