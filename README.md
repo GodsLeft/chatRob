@@ -1,3 +1,6 @@
+# chatbot
+- 关于chatbot的php网页部分不太懂
+
 # 其他
 - nltk.corpus.words.words()：所有英文单词，可以用来识别语法错误
 - nltk.corpus.stopwords.words：停用词语料库，用来识别最频繁出现的没有意义的单词
