@@ -5,3 +5,4 @@ target/
 *.iml
 zhuindex/
 corpus/
+segment_result
