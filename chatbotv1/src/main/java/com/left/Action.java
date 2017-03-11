@@ -50,6 +50,7 @@ public class Action {
         indexSearcher = new IndexSearcher(reader);
     }
 
+    // 解析http请求，并做出回应
     public static void doServlet(FullHttpRequest req, NettyHttpServletResponse res) throws IOException, ParseException{
         ByteBuf buf = null;
         QueryStringDecoder qsd = new QueryStringDecoder(req.uri());
@@ -72,7 +73,7 @@ public class Action {
                 return;
             }
 
-            log.info("question="+q);
+            log.info("question=" + q);
 
             //获取客户端的IP地址
             List<String> clientIps = mapParameters.get("clientIp");
@@ -99,7 +100,7 @@ public class Action {
             //查询建好的索引，通过query词做切词，并lucene query，然后检索索引的question字段，匹配上的返回answer字段
             //的值作为候选集，使用时挑出候选集中的一条作为答案
             Analyzer analyzer = new IKAnalyzer(true);
-            QueryParser qp = new QueryParser(Version.LUCENE_4_9, "quesion", analyzer);
+            QueryParser qp = new QueryParser(Version.LUCENE_4_9, "question", analyzer);
             if(topDocs.totalHits == 0){
                 qp.setDefaultOperator(QueryParser.Operator.AND);
                 query = qp.parse(q);
