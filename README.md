@@ -1,5 +1,7 @@
 # chatbot
 - 关于chatbot的php网页部分不太懂
+- 应该是使用了netty作为服务器的后台，使用php作为前台与后台的链接
+- 使用php构建了resquest对象
 
 # 其他
 - nltk.corpus.words.words()：所有英文单词，可以用来识别语法错误
