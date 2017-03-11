@@ -25,6 +25,7 @@ public class Indexer
 {
     public static final Charset UTF8 = Charset.forName("utf8");
 
+    // 用来将md5值变为字符串
     public static String hexString(byte[] b){
         String ret = "";
         for(int i=0; i<b.length; i++){
@@ -40,6 +41,7 @@ public class Indexer
             System.err.println("Usage: " + Indexer.class.getSimpleName() + " corpus_path index_path");
             System.exit(-1);
         }
+        //语料库的路径，索引路径
         String corpusPath = args[0];
         String indexPath = args[1];
 
@@ -53,7 +55,7 @@ public class Indexer
                 new FileInputStream(corpusPath), "UTF-8"));
 
         String line = "";
-        String last = "";
+        String last = ""; //保存上一行的文本
         long lineNum = 0;
         MessageDigest md = MessageDigest.getInstance("MD5");
         HashSet<String> mc = new HashSet<String>();
@@ -62,7 +64,7 @@ public class Indexer
         long last_t = 0;
         while((line = br.readLine()) != null) {
             totalCount ++;
-            if(totalCount % 15000000 == 0) {
+            if(totalCount % 15000000 == 0) { //每经过1500 0000行就要HashSet清空
                 System.out.println("clear set");
                 mc.clear();
             }
@@ -70,10 +72,11 @@ public class Indexer
             if(0 == line.length()) continue;
 
             if(!last.equals("")){
-                String pair = last + line;
+                String pair = last + line; //上一行文本+本行文本构成一个(question anwser)对
                 byte[] md5 = md.digest(pair.getBytes(UTF8));
                 String md5_str = hexString(md5);
 
+                //检查这个pair是否已经存储过了
                 if(mc.contains(md5_str)){
                     dupCount ++;
                     continue;
@@ -87,7 +90,7 @@ public class Indexer
             }
             last = line;
             lineNum ++;
-            if(lineNum % 100000 == 0){
+            if(lineNum % 100000 == 0){ //每计算10万行，就输出所耗费的时间
                 long t = System.currentTimeMillis();
                 System.out.println("elapse second: " + (t - last_t)/1000 + " add doc " + lineNum + " totalCount:" + totalCount + " dup:" + dupCount);
                 last_t = t;

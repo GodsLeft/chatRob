@@ -13,12 +13,8 @@ public class NettyHttpServletResponse extends DefaultHttpResponse implements Ful
         super(version, status);
     }
 
-    public HttpHeaders trailingHeaders(){
-        return null;
-    }
-    public void setContent(ByteBuf buf){
-        this.content = buf;
-    }
+    public HttpHeaders trailingHeaders(){ return null; }
+    public void setContent(ByteBuf buf){ this.content = buf; }
     public ByteBuf content(){return content;}
     public int refCnt(){return 0;}
     public boolean release(){return false;}
