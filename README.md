@@ -8,6 +8,11 @@
 - http://blog.wpeace.cn/2016/12/20/netty%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/
 - nettydemo:是一个小例子
 
+## tianqi
+- 微信小程序一个应用
+- 可以考虑使用微信小程序调用netty接口，在微信程序中调用聊天机器人
+- 这个微信小程序参考自：http://geek.csdn.net/news/detail/185777
+
 # 其他
 - nltk.corpus.words.words()：所有英文单词，可以用来识别语法错误
 - nltk.corpus.stopwords.words：停用词语料库，用来识别最频繁出现的没有意义的单词
