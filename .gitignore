@@ -6,3 +6,4 @@ target/
 zhuindex/
 corpus/
 segment_result
+*.bin

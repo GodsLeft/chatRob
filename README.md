@@ -3,6 +3,11 @@
 - 应该是使用了netty作为服务器的后台，使用php作为前台与后台的链接
 - 使用php构建了resquest对象
 
+## netty相关
+- blog.wpeace.cn/2016/12/20/netty入门学习/
+- http://blog.wpeace.cn/2016/12/20/netty%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/
+- nettydemo:是一个小例子
+
 # 其他
 - nltk.corpus.words.words()：所有英文单词，可以用来识别语法错误
 - nltk.corpus.stopwords.words：停用词语料库，用来识别最频繁出现的没有意义的单词
