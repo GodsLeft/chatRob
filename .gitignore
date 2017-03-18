@@ -7,3 +7,6 @@ zhuindex/
 corpus/
 segment_result
 *.bin
+*.t7
+*.zip
+*.segment
