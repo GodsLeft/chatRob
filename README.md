@@ -19,7 +19,7 @@
 - 主要是几个算法
     + seq2seq算法
     + lstm
-    + tensorflow学习
+    + tensorflow学习:极客教程
 
 
 

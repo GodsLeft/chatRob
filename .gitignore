@@ -10,3 +10,4 @@ segment_result
 *.t7
 *.zip
 *.segment
+MNIST_data/
