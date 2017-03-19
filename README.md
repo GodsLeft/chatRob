@@ -13,13 +13,22 @@
 - 可以考虑使用微信小程序调用netty接口，在微信程序中调用聊天机器人
 - 这个微信小程序参考自：http://geek.csdn.net/news/detail/185777
 
+# 想法
+- 其实整个聊天机器人最关键的部分就是最后的几张
+- 最后几张看得不是很明白
+- 主要是几个算法
+    + seq2seq算法
+    + lstm
+    + tensorflow学习
+
+
+
 # 其他
 - nltk.corpus.words.words()：所有英文单词，可以用来识别语法错误
 - nltk.corpus.stopwords.words：停用词语料库，用来识别最频繁出现的没有意义的单词
 - nltk.corpus.cmudict.dict():用来输出每个英文单词的发音
 - nltk.corpus.swadesh:多种语言核心200多个词的对照，可以作为语言翻译的基础
 - WordNet:同义词集，面向语义的英语词典，由同义词集组成，并组成一个网络
-
 
 # 证书过期问题
 - 下载github上NLPIR的证书
