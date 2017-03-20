@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+
+    <script type="text/javascript">
+        function loadXMLDoc() {
+            var xmlhttp;
+            if (window.XMLHttpRequest){
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("mydiv").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "http://wthrcdn.etouch.cn/weather_mini?city=" + "北京", true);
+            xmlhttp.send();
+            // 测试
+            //document.getElementById("mydiv").innerHTML = "hello zhu";
+        }
+    </script>
+</head>
+<body>
+<button type="button" onclick="loadXMLDoc()">提问</button>
+<div id="mydiv"></div>
+</body>
+</html>
