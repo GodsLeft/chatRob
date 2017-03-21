@@ -22,10 +22,32 @@
             // 测试
             //document.getElementById("mydiv").innerHTML = "hello zhu";
         }
+
+        function submit() {
+            var xmlhttp;
+            if (window.XMLHttpRequest){
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            var input = document.getElementById("input").value;
+            alert(input);
+            var datastr = input;
+            datastr = encodeURI(datastr);
+            var url = "http://wthrcdn.etouch.cn/weather_mini?city=" + datastr;
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send()
+        }
     </script>
 </head>
 <body>
 <button type="button" onclick="loadXMLDoc()">提问</button>
-<div id="mydiv"></div>
+<div id="mydiv">
+    <div id="input-group">
+        <input type="text" id="input" autofocus="autofocus" onkeydown="submitByEnter()"/>
+        <button type="button" onclick="submit()">发送</button>
+    </div>
+</div>
 </body>
 </html>
