@@ -1,30 +1,62 @@
-#coding:utf-8
-import tensorflow.examples.tutorials.mnist.input_data as input_data
+# coding:utf-8
+
 import tensorflow as tf
+import math
 
-mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+NUM_CLASSES = 10
+IMAGE_SIZE = 28
+IMAGE_PIXELS = IMAGE_SIZE * IMAGE_SIZE
 
-x = tf.placeholder(tf.float32, [None, 784])
-W = tf.Variable(tf.zeros([784, 10]))
-b = tf.Variable(tf.zeros([10]))
+def inference(images, hidden1_units, hidden2_units):
+    """构建模型
+    :param images: Images placeholder, from inputs()
+    :param hidden1_units: 第一个隐藏层的大小
+    :param hidden2_units: 第二个隐藏层的大小
+    :return: 逻辑回归的输出张量
+    """
+    # 隐藏层1
+    with tf.name_scope('hidden1'):
+        weights = tf.Variable(tf.truncated_normal([IMAGE_PIXELS, hidden1_units], stddev=1.0 / math.sqrt(float(IMAGE_PIXELS))), name='weights')
+        biases = tf.Variable(tf.zeros([hidden1_units]), name='biases')
+        hidden1 = tf.nn.relu(tf.matmul(images, weights) + biases)
 
-y = tf.nn.softmax(tf.matmul(x, W) + b)
-y_ = tf.placeholder("float", [None, 10])
-cross_entropy = -tf.reduce_sum(y_*tf.log(y))
+    # 隐藏层2
+    with tf.name_scope('hidden2'):
+        weights = tf.Variable(tf.truncated_normal([hidden1_units, hidden2_units], stddev=1.0 / math.sqrt(float(hidden1_units))), name='weights')
+        biases = tf.Variable(tf.zeros([hidden2_units]), name='biases')
+        hidden2 = tf.nn.relu(tf.matmul(hidden1, weights) + biases)
 
-train_step = tf.train.GradientDescentOptimizer(0.1).minimize(cross_entropy)
+    # softmax linear
+    with tf.name_scope('softmax_linear'):
+        weights = tf.Variable(tf.truncated_normal([hidden2_units, NUM_CLASSES], stddev=1.0 / math.sqrt(float(hidden2_units))), name='weights')
+        biases = tf.Variable(tf.zeros([NUM_CLASSES]), name='biases')
+        logits = tf.matmul(hidden2_units, weights) + biases
+    return logits
 
-init = tf.initialize_all_variables()
+def loss(logits, labels):
+    """
+    计算损失
+    :param logits: Logits tensor, float - [batch_size, NUM_CLASSES]
+    :param labels: Labels tensor, int32 - [batch_size]
+    :return: 损失张量 float
+    """
+    labels = tf.to_int64(labels)
+    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels, logits=logits, name='xentropy')
+    return tf.reduce_mean(cross_entropy, name='xentropy_mean')
 
-sess = tf.Session()
-sess.run(init)
+def training(loss, learning_rate):
+    """
+    设置训练参数
+    :param loss:
+    :param learning_rate:
+    :return:
+    """
+    tf.summary.scalar('loss', loss)  # 可以向事件文件中生成汇总值
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+    global_step = tf.Variable(0, name='global_step', trainable=False)
+    train_op = optimizer.minimize(loss, global_step=global_step)
+    return train_op
 
-# 开始训练模型
-for i in range(1000):
-    # 随机抓取训练数据中的100个批处理数据点，然后我们用这些替代之前的占位符，相当于随机梯度下降算法
-    batch_xs, batch_ys = mnist.train.next_batch(100)
-    sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
-
-correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-print sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels})
+def evaluation(logits, labels):
+    correct = tf.nn.in_top_k(logits, labels, 1)
+    return tf.reduce_sum(tf.cast(correct, tf.int32))
