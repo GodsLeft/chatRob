@@ -45,6 +45,7 @@ def run_training():
     data_sets = input_data.read_data_sets(FLAGS.input_data_dir, FLAGS.fake_data)
 
     with tf.Graph().as_default():
+        # 生成placeholders为images 和 labels
         images_placeholder, labels_placeholder = placeholder_inputs(FLAGS.batch_size)
         logits = mnist.inference(images_placeholder, FLAGS.hidden1, FLAGS.hidden2)
         loss = mnist.loss(logits, labels_placeholder)
@@ -54,7 +55,7 @@ def run_training():
         summary = tf.summary.merge_all()
 
         init = tf.global_variables_initializer()
-        saver = tf.train.Saver
+        saver = tf.train.Saver()
 
         sess = tf.Session()
         summary_writer = tf.summary.FileWriter(FLAGS.log_dir, sess.graph)
