@@ -31,8 +31,10 @@ def inference(images, hidden1_units, hidden2_units):
         weights = tf.Variable(tf.truncated_normal([hidden2_units, NUM_CLASSES], stddev=1.0 / math.sqrt(float(hidden2_units))), name='weights')
         biases = tf.Variable(tf.zeros([NUM_CLASSES]), name='biases')
         logits = tf.matmul(hidden2_units, weights) + biases
+
     return logits
 
+# logits是预测的输出，labels是原始数据的label
 def loss(logits, labels):
     """
     计算损失
@@ -41,21 +43,21 @@ def loss(logits, labels):
     :return: 损失张量 float
     """
     labels = tf.to_int64(labels)
-    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels, logits=logits, name='xentropy')
+    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels, logits=logits, name='xentropy')  # 直接计算交叉熵
     return tf.reduce_mean(cross_entropy, name='xentropy_mean')
 
+# loss是损失函数
 def training(loss, learning_rate):
-    """
-    设置训练参数
-    :param loss:
-    :param learning_rate:
-    :return:
+    """设置训练参数
+    :param loss: 损失函数
+    :param learning_rate: 学习速率
+    :return: 返回的是训练op
     """
     tf.summary.scalar('loss', loss)  # 可以向事件文件中生成汇总值
     optimizer = tf.train.GradientDescentOptimizer(learning_rate)
     global_step = tf.Variable(0, name='global_step', trainable=False)
     train_op = optimizer.minimize(loss, global_step=global_step)
-    return train_op
+    return train_op  # 返回的是训练操作，需要在sess中运行
 
 def evaluation(logits, labels):
     correct = tf.nn.in_top_k(logits, labels, 1)

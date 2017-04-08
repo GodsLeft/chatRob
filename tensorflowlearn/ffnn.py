@@ -1,16 +1,18 @@
 # coding:utf-8
+
+## 这是一个简单的前馈神经网络
 import argparse
 import os.path
 import time
 import sys
 import tensorflow as tf
-import tensorflow.examples.tutorials.mnist.input_data as input_data
-#mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+
 from tensorflow.examples.tutorials.mnist import mnist
 from tensorflow.examples.tutorials.mnist import input_data
 
 FLAGS = None
 
+# 在这里图像被表示为一维像素向量
 def placeholder_inputs(batch_size):
     images_placeholder = tf.placeholder(tf.float32, shape=(batch_size, mnist.IMAGE_PIXELS))
     labels_placeholder = tf.placeholder(tf.int32, shape=(batch_size))
@@ -18,7 +20,6 @@ def placeholder_inputs(batch_size):
 
 def fill_feed_dict(data_set, images_pl, labels_pl):
     """
-
     :param data_set: The set of images and labels, from input_data.read_data_sets()
     :param images_pl:
     :param labels_pl:
@@ -31,11 +32,13 @@ def fill_feed_dict(data_set, images_pl, labels_pl):
     }
     return feed_dict
 
+# eval_correct只是一个要传入的op参数
+# 这个函数是为了计算正确率
 def do_eval(sess, eval_correct, images_placeholoer, labels_placeholder, data_set):
     true_count = 0  # 正确的预测个数
     steps_per_epoch = data_set.num_examples // FLAGS.batch_size
     num_examples = steps_per_epoch * FLAGS.batch_size
-    for step in xrange(steps_per_epoch):
+    for step in xrange(steps_per_epoch):  # 总共有多少批次
         feed_dict = fill_feed_dict(data_set, images_placeholoer, labels_placeholder)
         true_count += sess.run(eval_correct, feed_dict=feed_dict)
     precision = float(true_count) / num_examples
@@ -47,10 +50,10 @@ def run_training():
     with tf.Graph().as_default():
         # 生成placeholders为images 和 labels
         images_placeholder, labels_placeholder = placeholder_inputs(FLAGS.batch_size)
-        logits = mnist.inference(images_placeholder, FLAGS.hidden1, FLAGS.hidden2)
+        logits = mnist.inference(images_placeholder, FLAGS.hidden1, FLAGS.hidden2)  # logits op
         loss = mnist.loss(logits, labels_placeholder)
         train_op = mnist.training(loss, FLAGS.learning_rate)
-        eval_correct = mnist.evaluation(logits, labels_placeholder)
+        eval_correct = mnist.evaluation(logits, labels_placeholder)  #
 
         summary = tf.summary.merge_all()
 
@@ -61,7 +64,7 @@ def run_training():
         summary_writer = tf.summary.FileWriter(FLAGS.log_dir, sess.graph)
 
         sess.run(init)
-        for step in xrange(FLAGS.max_steps):
+        for step in xrange(FLAGS.max_steps):  # max_step最多运行多少次
             start_time = time.time()
 
             feed_dict = fill_feed_dict(data_sets.train, images_placeholder, labels_placeholder)
@@ -80,8 +83,10 @@ def run_training():
                 saver.save(sess, checkpoint_file, global_step=step)
                 print('Training Data Eval:')
                 do_eval(sess, eval_correct, images_placeholder, labels_placeholder, data_sets.train)
+
                 print('Validation Data Eval:')
                 do_eval(sess, eval_correct, images_placeholder, labels_placeholder, data_sets.validation)
+
                 print('Test Data Eval:')
                 do_eval(sess, eval_correct, images_placeholder, labels_placeholder, data_sets.test)
 
