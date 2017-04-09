@@ -17,9 +17,9 @@
 
 ### 交叉熵
 - 成本函数评估模型好坏
-- $H_{y^'} (y) = - \sum_i y_i^' log(y_i)$
+- $H_{y'} (y) = - \sum_i y_i' log(y_i)$
     + $y$:是我们预测的概率分布
-    + $y^'$:是实际的分布（one-hot vector）
+    + $y'$:是实际的分布（one-hot vector）
     
 ### 前馈神经网络
 - mnist
@@ -33,6 +33,8 @@
 - 在卷积的过程时传入的参数[5, 5, 1, 32]中的32解释为输出的通道数目并不合适，我觉得解释为有32套卷积核比较合适
 - 卷积的过程中为什么通道会变厚
 
-
 ## 参考文章
 - 关于卷积网络较为浅显的解释:http://www.voidcn.com/blog/pirage/article/p-6309109.html
+- 一文读懂卷积神经网络：http://dataunion.org/11692.html
+- 数据集划分：http://www.cnblogs.com/bourneli/archive/2013/03/11/2954060.html
+    + 验证集通常用来辅助模型构建，这是它与测试集的本质区别
