@@ -6,10 +6,10 @@ import numpy as np
 def readmyfile(filenamequeue):
     reader = tf.TextLineReader()
     key, value = reader.read(filenamequeue)  # key表征输入的文件和其中的记录
-    record_defaults = [[1], [1], [1], [1]]  # 指定矩阵格式以及数据类型
+    record_defaults = [[1.0], [1.0], [1.0], [1.0]]  # 指定矩阵格式以及数据类型
     col1, col2, col3, col4 = tf.decode_csv(value, record_defaults=record_defaults)
     # features = tf.pack([col1, col2])
-    features = tf.concat(0, [col1, col2, col4])
+    features = tf.concat([[col1], [col2], [col4]], 0)
     label = col3
     return features, label
 
