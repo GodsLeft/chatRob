@@ -25,6 +25,15 @@
 - mnist
 - ffnn.py:这个文件运行时出错
    
+## readdata.py
+- 学习如何加载数据
+
+## flat2d
+- 拟合线性方程
+
+## readflat3d
+- 从csv文件中加载数据，并拟合平面
+- 注意feed_dict只能狗使用非tensor的数据，如果直接是tensor，那么直接带入进行训练
 
 ## 我的问题
 - sess.run的时候开始执行tensorflow
