@@ -24,7 +24,7 @@ summary_writer = tf.summary.FileWriter('/tmp/tensorflow/softmax', sess.graph)
 sess.run(init)  # 启动模型并初始化向量
 
 # 模型循环执行1000次，每次随机抓取100个数据点，用这些数据点替换原来的占位符，来运行train_step
-for i in range(10000):
+for i in range(1000):
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
     if (i+1) % 100 == 0:

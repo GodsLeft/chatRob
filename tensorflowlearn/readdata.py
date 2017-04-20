@@ -37,12 +37,14 @@ with tf.Session() as sess:  #
     threads = tf.train.start_queue_runners(coord=coord)  # 将文件名填充到队列，将会启动输入管道线程
 
     try:
-        while True:
+        # while True:
+        while not coord.should_stop():
             example, label = sess.run([featurebatch, labelbatch])
-            print example
+            print example, label
     except tf.errors.OutOfRangeError:
         print 'Done reading'
     finally:
-        coord.request_stop()
-        coord.join(threads)
-        sess.close()
+        coord.request_stop()  # 请求该线程停止
+
+    coord.join(threads)
+    sess.close()

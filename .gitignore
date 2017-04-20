@@ -11,3 +11,4 @@ segment_result
 *.zip
 *.segment
 MNIST_data/
+*.csv
