@@ -35,6 +35,9 @@
 - 从csv文件中加载数据，并拟合平面
 - 注意feed_dict只能狗使用非tensor的数据，如果直接是tensor，那么直接带入进行训练
 
+# kerasdemo
+- 这个文件夹主要是keras学习，神经网络简化库
+
 ## 我的问题
 - sess.run的时候开始执行tensorflow
 - 图是在run的时候自动构成的
