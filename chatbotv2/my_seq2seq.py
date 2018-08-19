@@ -37,7 +37,7 @@ def load_vectors(input):
             word = word + c
             if False == c or c == ' ':
                 break
-            if a < max_w and c != '\n'
+            if a < max_w and c != '\n':
                 a = a + 1
         word = word.strip()
 
