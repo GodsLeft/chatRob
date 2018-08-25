@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>chatbot</title>
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+        <script src="https://cdn.bootcss.com/ckeditor/4.9.2/ckeditor.js"></script>
+    </head>
+    <body>
+        <div class="col-sm-4 col-xs-10">
+            <div class="row">
+                <textarea id="chatarea">
+                    <div style='color: blue; text-align: left; padding: 5px;'>机器人: 喂，大哥您好，您终于肯跟我聊天了,来侃侃呗,我来者不拒!</div>
+                    <div style='color: blue; text-align: left; padding: 5px;'>机器人: 啥?你问我怎么这么聪明会聊天?因为我刚刚吃了一堆影视剧字幕!</div>
+                </textarea>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="input-group">
+                    <input type="text" id="input" class="form-control" autofocus="autofocus" onkeydown="submitByEnter()" /> 
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="submit()">发送</button>
+                </span>
+                </div>
+            </div>
+        </div>
+</body>
+
+<script type="text/javascript">
+
+    CKEDITOR.replace('chatarea',
+            {
+                readOnly: true,
+                toolbar: ['Source'],
+                height: 500,
+                removePlugins: 'elementspath',
+                resize_enabled: false,
+                allowedContent: true
+            });
+
+    function submit() {
+        var input = $("#input").val().trim();
+        if (input == '') {
+            jQuery('#input').val('');
+            return;
+        }
+        addText(input, false);
+        jQuery('#input').val('');
+        var datastr = "input=" + input;
+        datastr = encodeURI(datastr);
+        $.post('/', datastr, function(data){addText(data, true)});
+    }
+
+    function addText(text, is_response) {
+        var oldText = CKEDITOR.instances.chatarea.getData();
+        var prefix = '';
+        if (is_response) {
+            prefix = "<div style='color: blue; text-align: left; padding: 5px;'>机器人: "
+        } else {
+            prefix = "<div style='color: darkgreen; text-align: right; padding: 5px;'>我: "
+        }
+        CKEDITOR.instances.chatarea.setData(oldText + "" + prefix + text + "</div>");
+    }
+</script>
+
+</html>

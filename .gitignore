@@ -12,3 +12,6 @@ segment_result
 *.segment
 MNIST_data/
 *.csv
+
+# nodejs库
+node_modules/
