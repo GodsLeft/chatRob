@@ -43,7 +43,6 @@ const handler = async (ctx, next) => {
     }
 };
 
-
 app.use(koaBody());
 app.use(handler);
 app.use(logger);
